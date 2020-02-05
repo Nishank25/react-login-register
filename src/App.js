@@ -1,29 +1,31 @@
 import React from 'react';
 import './App.css';
-import { Register,Login } from "./components/Login/index";
+import { Register, Login, Dashbord,Profile } from "./components/Login/index";
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Navbar from './components/Login/Navbar';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      isLogginActive : false,
     }
   }
 
   render() {
-    const {isLogginActive} = this.state;
     return(
+      <Router>
       <div className="App">
-        <div className="login">
-            <div className="container">
-              {isLogginActive && <Login containerRef={(ref) => this.current = ref}/>}
-              {!isLogginActive && <Register  containerRef={(ref) => this.current = ref}/>}
-            </div>
+        <Navbar />
+        <Route exact path="/" component={Dashbord} />
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/profile" component={Profile} />
+          </div>
         </div>
-      </div>
+      </Router>
     )
   }
-
 }
 
 export default App;

@@ -35,10 +35,10 @@ export class Register extends React.Component {
             errors['confirmPassword'] = "Password and confirm password does not match.";
         } if(this.state.gender === ""){
             isValidate = false;
-            errors['gender'] = "gender is required";
+            errors['gender'] = "Gender is required";
         } if(this.state.phoneNo.length > 10 || this.state.phoneNo.length < 10){
             isValidate = false;
-            errors['phoneNo'] = "please pass valid number";
+            errors['phoneNo'] = "Please pass valid number";
         }
         this.setState({
             errors: errors
@@ -46,20 +46,20 @@ export class Register extends React.Component {
         return isValidate
     }
     register(){
-        console.log('Before valid');
         if(this.valid()){
-            console.log('valid');
             PostData('register', this.state).then((result) => {
                 let responseJson = result;
+                console.log(responseJson);
             })
         }
     }
     render() {
         return(
-            <div className="base-container" ref={this.props.containerRef}>
+            <div className="container">
             <div className="header">Register</div>
             <div className="content">
                 <div className="form">
+                <div className="jumbotron mt-5">
                     <div className="form-group">
                         <label htmlFor="firsName">First Name</label>
                         <input type="text" name="firsName" placeholder="first name" onChange={(event) => {this.setState({firsName :event.target.value})}}/>
@@ -97,6 +97,7 @@ export class Register extends React.Component {
                     </div>
                     <div className="footer">
                         <button type="button" className="btn" onClick={this.register}>Register</button>
+                    </div>
                     </div>
                 </div>
             </div>

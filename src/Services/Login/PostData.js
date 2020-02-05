@@ -1,8 +1,6 @@
 export async function PostData(type, userData){
 try{
     let BaseUrl = 'http://staging.php-dev.in:8844/trainingapp/api/users/'+type;
-
-
     var formData = new FormData();
     if(type === 'login'){
         formData.append('email',userData.email);
@@ -23,7 +21,9 @@ try{
     };
         const result =  await fetch(BaseUrl,settings);
         const result1 = await result.json();
-        localStorage.setItem('access_token', result1.data.access_token)
+        if(result1.data){
+            localStorage.setItem('access_token', result1.data.access_token)
+        }
         return result1;
 } catch(error){
     console.log(error)
@@ -43,4 +43,25 @@ try{
         //  .catch((Error) => {
         //     reject(Error);
         //  });
+}
+
+export async function GetProfile(type, userData){
+    try{
+        let BaseUrl = 'http://staging.php-dev.in:8844/trainingapp/api/users/'+type;
+        const settings = {
+            method: 'GET',     
+            headers : {
+                access_token : userData,
+            },
+        };
+        console.log(settings);
+        const result =  await fetch(BaseUrl,settings);
+        const result1 = await result.json();
+        console.log(result1);
+        return result1;
+    }catch(error){
+        console.log(error);
+    }
+    
+
 }

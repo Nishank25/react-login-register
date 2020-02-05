@@ -6,23 +6,20 @@
     align-items: center;
 }
 .header {
-    font-size: 24px;
+    margin-top: 2%;
+    font-size: 23px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .content{
     display: flex;
     flex-direction: column;
-
 }
 
 .form{
-    margin-top: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid;
-    padding: 50px;
-    box-shadow: 5px 8px #cec9c9;
+    padding: 5px;
 }
 .form-group{
     display: flex;
@@ -31,18 +28,16 @@
     width: fit-content;
 }
 label{
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
 }
 input{
     margin-top: 6px;
-    min-width: 18em;
+    min-width: 35em;
     height: 30px;
-    padding: 0px 10px;
-    border: 0;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    background-color: aliceblue;
+    width: 100%;
+    padding: 0px 5px;
+    margin-bottom: 5px;
 }
 .footer {
     margin-top: 3em;
@@ -51,7 +46,6 @@ input{
     background-color: #2386c8;
     border: 0;
     color: cornsilk;
-    width: 150%;
     font-size: large;
 }
 .btn:hover {
