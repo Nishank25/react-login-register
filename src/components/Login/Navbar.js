@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 export class Dashbord extends Component {
   logOut(e) {
     e.preventDefault()
-    localStorage.removeItem('access_token')
+    localStorage.removeItem('usertoken')
     this.props.history.push(`/`)
   }
 
@@ -65,7 +65,7 @@ export class Dashbord extends Component {
               </Link>
             </li>
           </ul>
-          {localStorage.access_token ? userLink : loginRegLink}
+          {localStorage.usertoken ? userLink : loginRegLink}
         </div>
       </nav>
     )

@@ -1,67 +1,61 @@
-export async function PostData(type, userData){
-try{
-    let BaseUrl = 'http://staging.php-dev.in:8844/trainingapp/api/users/'+type;
-    var formData = new FormData();
-    if(type === 'login'){
-        formData.append('email',userData.email);
-        formData.append('password',userData.password);
-    }else{
-        formData.append('first_name',userData.firsName);
-        formData.append('last_name',userData.lastName);
-        formData.append('email',userData.email);
-        formData.append('password',userData.password);
-        formData.append('confirm_password',userData.confirmPassword);
-        formData.append('gender',userData.gender);
-        formData.append('phone_no',userData.phoneNo);
-    }
-    const settings = {
-        method: 'POST',     
-        body:formData
-        
-    };
-        const result =  await fetch(BaseUrl,settings);
-        const result1 = await result.json();
-        if(result1.data){
-            localStorage.setItem('access_token', result1.data.access_token)
+import axios from 'axios'
+
+export async function LoginData(userData){
+    return axios
+    .post(
+        'http://10.0.28.112:2512/api/login',
+        {
+            email: userData.email,
+            password: userData.password
+        },
+        {
+            headers: { 'Content-Type': 'application/json' }
         }
-        return result1;
-} catch(error){
-    console.log(error)
+    )
+    .then(response => {
+        localStorage.setItem('usertoken', response.data.token)
+        return response.data.token
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }
-        //  fetch(BaseUrl,{
-        //         method: 'POST',
-        //         headers: {  'Content-Type': 'application/x-www-form-urlencoded' },
-        //         body: {
-        //             'email': 'nishank.rathod@neosofttech.com',
-        //             'password' : 'nishank123'
-        //         }
-        //     })
-        //  .then((response) => response.json())
-        //  .then((responseJson) => {
-        //      resolve(responseJson);
-        //  })
-        //  .catch((Error) => {
-        //     reject(Error);
-        //  });
+export async function RegisterData(userData){
+    return axios
+    .post('http://10.0.28.112:2512/api/register', userData,{
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+        console.log(response)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }
 
-export async function GetProfile(type, userData){
-    try{
-        let BaseUrl = 'http://staging.php-dev.in:8844/trainingapp/api/users/'+type;
-        const settings = {
-            method: 'GET',     
-            headers : {
-                access_token : userData,
-            },
-        };
-        console.log(settings);
-        const result =  await fetch(BaseUrl,settings);
-        const result1 = await result.json();
-        console.log(result1);
-        return result1;
-    }catch(error){
-        console.log(error);
-    }
-    
-
+export async function GetProfile(usertoken){
+    let baseUrl='http://10.0.28.112:2512/api/';
+    return axios
+        .get(baseUrl+'profile', {
+            headers: { Authorization: `Bearer ${usertoken}` }
+        })
+        .then(response => {
+            console.log(response)
+            return response.data
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+export async function editData(userData){
+    return axios
+    .post('http://10.0.28.112:2512/api/edit', userData,{
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+        console.log(response)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }

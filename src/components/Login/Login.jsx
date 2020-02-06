@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostData } from "../../Services/Login/PostData";
+import { LoginData } from "../../Services/Login/PostData";
 export class Login extends React.Component {
 
     constructor(props) {
@@ -33,12 +33,13 @@ export class Login extends React.Component {
     login(){
         this.setState({emailError:'', passwordError:''})
         if(this.valid()){
-            PostData('login', this.state).then((result) => {
+            LoginData(this.state).then((result) => {
                 let responseJson = result;
-                if(responseJson.data){
+                console.log(responseJson);
+                if(responseJson){
                     this.props.history.push(`/profile`)
                 }else {
-                    alert(responseJson.user_msg);
+                    alert(responseJson);
                 }
             })
         }
