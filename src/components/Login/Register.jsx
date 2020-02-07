@@ -1,5 +1,9 @@
 import React from 'react';
 import { RegisterData } from "../../Services/Login/PostData";
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
 export class Register extends React.Component {
 
     constructor(props) {
@@ -42,8 +46,13 @@ export class Register extends React.Component {
             console.log('validate');
             RegisterData(this.state).then((result) => {
                 let responseJson = result;
-                console.log(responseJson);
-            })
+                if(responseJson){
+                    this.props.history.push(`/login`);
+                    NotificationManager.success('Registration has been done successfully', 'Successful!', 2000);
+                }else {
+                    NotificationManager.error('Error while Registration !!!', 'Error!');
+                }
+            })  
         }
     }
     render() {
@@ -73,7 +82,7 @@ export class Register extends React.Component {
                             <input type="password" name="confirmPassword" placeholder="confirm password" onChange={(event) => {this.setState({confirmPassword :event.target.value})}}/>
                             <p>{this.state.errors.confirmPassword}</p>
                         </div>
-                        <div className="footer">
+                        <div className="RegisterFooter">
                             <button type="button" className="btn" onClick={this.register}>Register</button>
                         </div>
                     </div>

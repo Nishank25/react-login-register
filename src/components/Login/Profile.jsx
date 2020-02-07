@@ -1,6 +1,9 @@
 import React from 'react'
 import { editData,GetProfile } from "../../Services/Login/PostData";
 
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
 export class Profile extends React.Component {
     constructor() {
         super()
@@ -14,9 +17,7 @@ export class Profile extends React.Component {
     }
     componentDidMount() {
         GetProfile(localStorage.usertoken).then(res => {
-            
             if(res){
-                console.log(12);
                 this.setState({
                     name: res.user.name,
                     email: res.user.email,
@@ -47,8 +48,11 @@ export class Profile extends React.Component {
         if(this.valid()){
             editData(this.state).then((result) => {
                 let responseJson = result;
+                console.log(responseJson);
                 if(responseJson){
-                    this.props.history.push(`/profile`)
+                    NotificationManager.success('Profile edited successfully', 'Successful!', 2000);
+                }else {
+                    NotificationManager.error('Error while Editing the user !!!', 'Error!');
                 }
             })
         }
@@ -61,7 +65,6 @@ export class Profile extends React.Component {
                         <h1 className="text-center">PROFILE</h1>
                     </div>
                     <div className="form">
-                        <div className="jumbotron mt-5">
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input type="text" name="name" placeholder="name" value = {this.state.name} onChange={(event) => {this.setState({name :event.target.value})}}/>
@@ -72,10 +75,9 @@ export class Profile extends React.Component {
                                 <input type="email" name="email" placeholder="email" value = {this.state.email} onChange={(event) => {this.setState({email :event.target.value})}}/>
                                 <p>{this.state.errors.email}</p>
                             </div>
-                            <div className="footer">
+                            <div className="ProfileFooter">
                                 <button type="button" className="btn" onClick={this.edit}>Edit</button>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

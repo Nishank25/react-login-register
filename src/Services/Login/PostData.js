@@ -26,7 +26,7 @@ export async function RegisterData(userData){
         headers: { 'Content-Type': 'application/json' }
     })
     .then(response => {
-        console.log(response)
+        return response.data
     })
     .catch(err => {
         console.log(err)
@@ -40,7 +40,6 @@ export async function GetProfile(usertoken){
             headers: { Authorization: `Bearer ${usertoken}` }
         })
         .then(response => {
-            console.log(response)
             return response.data
         })
         .catch(err => {
@@ -53,7 +52,7 @@ export async function editData(userData){
         headers: { 'Content-Type': 'application/json' }
     })
     .then(response => {
-        console.log(response)
+        return response.data
     })
     .catch(err => {
         console.log(err)

@@ -32,6 +32,11 @@ export class Dashbord extends Component {
           </Link>
         </li> 
         <li className="nav-item">
+          <Link to="/users" className="nav-link">
+            All Users
+          </Link>
+        </li>
+        <li className="nav-item">
           <a href="" onClick={this.logOut.bind(this)} className="nav-link">
             Logout
           </a>

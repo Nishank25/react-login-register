@@ -1,8 +1,12 @@
 import React from 'react';
 import './App.css';
-import { Register, Login, Dashbord,Profile } from "./components/Login/index";
+import { Register, Login, Dashbord,Profile,Footer,Users } from "./components/Login/index";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Navbar from './components/Login/Navbar';
+
+// React Notification
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 class App extends React.Component {
   constructor(props){
@@ -21,7 +25,10 @@ class App extends React.Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/users" component={Users} />
+            <NotificationContainer />
           </div>
+          <Footer />
         </div>
       </Router>
     )

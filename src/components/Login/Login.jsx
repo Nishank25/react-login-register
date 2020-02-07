@@ -1,5 +1,9 @@
 import React from 'react';
 import { LoginData } from "../../Services/Login/PostData";
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
 export class Login extends React.Component {
 
     constructor(props) {
@@ -30,16 +34,20 @@ export class Login extends React.Component {
             return true;
         }
     }
+    register = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/register`);
+    };
     login(){
         this.setState({emailError:'', passwordError:''})
         if(this.valid()){
             LoginData(this.state).then((result) => {
                 let responseJson = result;
-                console.log(responseJson);
                 if(responseJson){
-                    this.props.history.push(`/profile`)
+                    this.props.history.push(`/profile`);
+                    NotificationManager.success('You have login successfully', 'Successful!', 2000);
                 }else {
-                    alert(responseJson);
+                    NotificationManager.error('Error while login !!!', 'Error!');
                 }
             })
         }
@@ -64,9 +72,20 @@ export class Login extends React.Component {
                                 <input type="password" name="password" placeholder="password" onChange={this.onChange} />
                                 <p>{this.state.passwordError}</p>
                             </div>
-                            <div className="footer">
-                                <button type="button" className="btn" onClick={this.login}>Login</button>
+
+                            <div className="LoginFooter row">
+                                <div className="col-md-5">
+                                    <a href="" onClick={this.register}>Create an account</a>
+                                </div>
+                                <div className="col-md-2">
+                                    <button type="button" className="btn" onClick={this.login}>Login</button>
+                                </div>
+                                
                             </div>
+                            <div className="col-md-2">
+                                
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
